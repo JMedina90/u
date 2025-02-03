@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: kanboard
+    env: docker
+    image: kanboard/kanboard:latest
+    ports:
+      - port: 80 # HTTP port
+      - port: 443 # HTTPS port, note that Render will manage SSL certificates automatically if you set up a custom domain
+    envVars:
+      # Add environment variables here if needed
+    disks:
+      - name: kanboard_data
+        mountPath: /var/www/app/data
+        sizeGB: 1 # Specify the required size based on your needs
+      - name: kanboard_plugins
+        mountPath: /var/www/app/plugins
+        sizeGB: 1 # Specify the required size based on your needs
+      - name: kanboard_ssl
+        mountPath: /etc/nginx/ssl
+        sizeGB: 1 # You might need to manually handle SSL on Render or use Render's automatic SSL with custom domains
